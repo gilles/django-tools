@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}User Sprints{% endblock %}
+
+{% block content %}
+    {% for point in points %}
+        <h2>{{ point.user_id }}</h2>
+        <p>{{ point.velocity }}</p>
+        <p>{{ point.scheduled }}</p>
+        <p>{{ point.achieved }}</p>
+        <p>{{ point.overhead }}</p>
+    {% endfor %}
+{% endblock %}
