@@ -3,11 +3,44 @@
 {% block title %}User Sprints{% endblock %}
 
 {% block content %}
-    {% for point in points %}
-        <h2>{{ point.user_id }}</h2>
-        <p>{{ point.velocity }}</p>
-        <p>{{ point.scheduled }}</p>
-        <p>{{ point.achieved }}</p>
-        <p>{{ point.overhead }}</p>
+    {% for user, records in view.iteritems %}
+        <div id="points-{{ user }}">
+            <a href={% url 'sprints:users-detail' records.0.user.id %}>{{ user }}</a>
+
+            <div class="btn-group" data-toggle="buttons-checkbox">
+                <button type="button" class="btn btn-primary active" data-toggle="collapse" data-target="#data-{{ user }}">Data</button>
+                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#graph-{{ user }}">Graph</button>
+            </div>
+
+            <div id="data-{{ user }}" class="collapse in">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Sprint</th>
+                        <th>Velocity</th>
+                        <th>Scheduled</th>
+                        <th>Achieved</th>
+                        <th>Added</th>
+                        <th>Overhead</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for record in records %}
+                        <tr>
+                            <td>{{ record.sprint.name }}</td>
+                            <td>{{ record.velocity }}</td>
+                            <td>{{ record.scheduled }}</td>
+                            <td>{{ record.achieved }}</td>
+                            <td>{{ record.added }}</td>
+                            <td>{{ record.overhead }}%</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div id="graph-{{ user }}" class="collapse">
+                Graph will go here
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}

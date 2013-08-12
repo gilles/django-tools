@@ -3,10 +3,10 @@
 Urls
 """
 
-from django.conf.urls import patterns
+from django.conf.urls import patterns, url
 import sprints.views
 
 urlpatterns = patterns('',
-                       (r'^users/$', sprints.views.get_all),
-                       (r'^users/(?P<user_id>\d)/$', sprints.views.get_one)
+                       url(r'^users/$', sprints.views.get_all, name='users-list'),
+                       url(r'^users/(?P<user_id>\d)/$', sprints.views.get_one, name='users-detail')
 )
